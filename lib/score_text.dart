@@ -10,8 +10,6 @@ class ScoreText extends PositionComponent {
     ),
   );
 
-  double _distanceTravelled = 0;
-
   @override
   Future<void> onLoad() async {
     score = 0;
@@ -20,18 +18,20 @@ class ScoreText extends PositionComponent {
   @override
   void render(canvas) {
     super.render(canvas);
-    scoreText.render(
-      canvas,
-      'Score : $score   HI : $highScore',
-      Vector2(screenWidth / 2, 100),
-      anchor: Anchor.center,
-    );
+    if (!FlappyAmongUs().gameOver) {
+      scoreText.render(
+        canvas,
+        'Score : $score   HI : $highScore',
+        Vector2(screenWidth / 2, 100),
+        anchor: Anchor.center,
+      );
+    }
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    _distanceTravelled += dt * 1000;
-    score = _distanceTravelled ~/ 100;
+    distanceTravelled += dt * 1000;
+    score = distanceTravelled ~/ 100;
   }
 }
